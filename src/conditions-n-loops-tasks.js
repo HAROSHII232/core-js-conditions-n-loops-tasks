@@ -310,8 +310,6 @@ function getBalanceIndex(arr) {
   return balancedIndex;
 }
 
-// console.log(getBalanceIndex([2, 3, 9, 5]));
-
 /**
  * Generates a spiral matrix of a given size, filled with numbers in ascending order starting from one.
  * The direction of filling with numbers is clockwise.
@@ -333,9 +331,49 @@ function getBalanceIndex(arr) {
  *          [10, 9,  8,  7]
  *        ]
  */
-function getSpiralMatrix(/* size */) {
-  throw new Error('Not implemented');
+function getSpiralMatrix(size) {
+  const matrix = [];
+
+  for (let i = 0; i < size; i += 1) {
+    matrix[i] = [];
+  }
+
+  let value = 1;
+  let startCol = 0;
+  let endCol = size - 1;
+  let startRow = 0;
+  let endRow = size - 1;
+
+  while (startCol <= endCol && startRow <= endRow) {
+    for (let i = startCol; i <= endCol; i += 1) {
+      matrix[startRow][i] = value;
+      value += 1;
+    }
+    startRow += 1;
+
+    for (let i = startRow; i <= endRow; i += 1) {
+      matrix[i][endCol] = value;
+      value += 1;
+    }
+    endCol -= 1;
+
+    for (let i = endCol; i >= startCol; i -= 1) {
+      matrix[endRow][i] = value;
+      value += 1;
+    }
+    endRow -= 1;
+
+    for (let i = endRow; i >= startRow; i -= 1) {
+      matrix[i][startCol] = value;
+      value += 1;
+    }
+    startCol += 1;
+  }
+
+  return matrix;
 }
+
+console.log(getSpiralMatrix(3));
 
 /**
  * Rotates a matrix by 90 degrees clockwise in place.
